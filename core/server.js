@@ -13,11 +13,12 @@ var cors=require('cors');
 
 //express
 var app=express();
-app.use(cors);
-app.use(bodyparser.json);
+//app.use(cors);
 app.use(bodyparser.urlencoded({
-    extended: false
+    extended: true
 }));
+
+app.use(bodyparser.json);
 
 //app.use(methodOverride());
 
@@ -30,3 +31,9 @@ app.use('/api', require('../routes/api'));
 //start server
 app.listen(2000);
 console.log('server is running at port 2000');
+
+
+
+
+
+
