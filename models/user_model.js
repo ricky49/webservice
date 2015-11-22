@@ -13,14 +13,8 @@ var userSchema=new mongoose.Schema(
         mail:String,
         name:String,
         lastname:String
-
     });
 
 
 //return model
  module.exports=restful.model('users',userSchema);
-
-
-
-
-
