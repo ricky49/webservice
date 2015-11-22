@@ -8,14 +8,18 @@
 var express=require('express');
 var mongoose=require('mongoose');
 var bodyparser=require('body-parser');
+var cors=require('cors');
 //var methodOverride = require('method-override');
 
 //express
 var app=express();
-app.use(bodyparser.json());
+app.use(cors);
+app.use(bodyparser.json);
 app.use(bodyparser.urlencoded({
-    extended: true
+    extended: false
 }));
+
+//app.use(methodOverride());
 
 //MongoDB
 mongoose.connect('mongodb://localhost/darr');
