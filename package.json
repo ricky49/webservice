@@ -14,7 +14,8 @@
     "mongoose": "^4.2.5",
     "morgan": "~1.6.1",
     "node-restful": "^0.2.2",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "jsonwebtoken":"~5.4.1"
 
   }
 }
