@@ -3,7 +3,6 @@
  */
 var express = require('express');
 var router = express.Router();
-
 //models
 var user_model=require('../models/user_model');
 var center_model=require('../models/center_model');
@@ -15,12 +14,14 @@ var request_model=require('../models/request_model');
 var report_model=require('../models/report_model');
 var surgeon_model=require('../models/surgeon_model');
 var surgery_model=require('../models/surgery_model');
-
 var procedure_model=require('../models/procedure_model');
+var app=express();
+
 
 //Routes
 user_model.methods(['get','put','post','delete']);
 user_model.register(router,'/users');
+
 
 center_model.methods(['get','put','post','delete']);
 center_model.register(router,'/center');
@@ -52,6 +53,6 @@ surgery_model.register(router,'/surgery');
 procedure_model.methods(['get','put','post','delete']);
 procedure_model.register(router,'/procedure');
 
-
+app.route('/userList', require('../Listas/usuario'));
 //return routes
 module.exports = router;

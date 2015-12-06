@@ -13,10 +13,10 @@ var requestSchema=new mongoose.Schema(
         pacient_tel:Number,
         ars:String,
         authorization:Number,
-        procedimiento_id:Number,
+        procedure_name:String,
         surgery_date:String,
         center_name:String,
-        surgeon_id:Number
+        surgeon_name:String
 
     });
 

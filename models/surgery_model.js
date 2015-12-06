@@ -8,7 +8,7 @@ var mongoose=restful.mongoose;
 //schema
 var surgerySchema=new mongoose.Schema(
     {
-        surgeon_id: Number,
+        surgeon_name: String,
         procedure_id:Number,
         center_name:String,
         surgery_date:String

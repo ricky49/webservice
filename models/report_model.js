@@ -13,7 +13,7 @@ var reportSchema=new mongoose.Schema(
         nss:Number,
         bandeja_id:Number,
         doctor:String,
-        surgeon_id:Number,
+        surgeon_name:String,
         observations:String,
         center:String,
         date:String
