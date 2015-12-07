@@ -59,15 +59,34 @@ app.post('/authenticate', function(req, res) {
 
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user, app.get('superSecret'), {
-                    expiresIn: 3600 // expires in 1 hours
+                User.find({
+                    user: req.body.user,
+                }, function(err, users) {
+
+                    if (err) throw err;
+
+                    if (!users) {
+                        res.json({ success: false, message: 'User not found.' });
+                    } else if (users) {
+
+                        var token = jwt.sign(user, app.get('superSecret'), {
+                            expiresIn: 3600 // expires in 1 hours
+                        });
+
+                        var userMap={};
+                        users.forEach(function(user){
+                            userMap[user._id]=user;
+                        });
+
+                        res.json({
+                            success: true,
+                            key_success: 'success',
+                            token: token,
+                            userList: userMap});
+                    }
+
                 });
 
-                res.json({
-                    success: true,
-                    key_success: 'success',
-                    token: token
-                });
             }
 
         }
