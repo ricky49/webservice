@@ -8,12 +8,11 @@ var mongoose=require('mongoose');
 var bodyparser=require('body-parser');
 var morgan = require('morgan');
 var express=require('express');
-var url = require('url')
-//var jwt = require('jwt-simple');
 var jwt  = require('jsonwebtoken');
-//var logearse=require('../core/login');
 var User=require('../models/user_model');
-//var jwtauth = require('../core/login');
+var Report=require('../models/report_model');
+var Request=require('../models/request_model');
+
 //express
 var app=express();
 
@@ -66,7 +65,7 @@ app.post('/authenticate', function(req, res) {
                     if (err) throw err;
 
                     if (!users) {
-                        res.json({ success: false, message: 'User not found.' });
+                        res.json({ success: false, message: 'User not found.'});
                     } else if (users) {
 
                         var token = jwt.sign(user, app.get('superSecret'), {
@@ -75,14 +74,14 @@ app.post('/authenticate', function(req, res) {
 
                         var userMap={};
                         users.forEach(function(user){
-                            userMap[user._id]=user;
+                            userMap=user;
                         });
 
                         res.json({
                             success: true,
                             key_success: 'success',
                             token: token,
-                            userList: userMap});
+                            userData: userMap});
                     }
 
                 });
@@ -128,7 +127,6 @@ app.use('/api', require('../routes/api'));
 
 app.post('/userList', function(req, res) {
 
-    // find the user
     User.find({
         user: req.body.user,
     }, function(err, users) {
@@ -141,7 +139,7 @@ app.post('/userList', function(req, res) {
 
             var userMap={};
             users.forEach(function(user){
-                userMap[user._id]=user;
+                userMap=user;
             });
 
             res.json({userList: userMap});
@@ -149,6 +147,53 @@ app.post('/userList', function(req, res) {
 
     });
 });
+
+app.post('/reportList', function(req, res) {
+
+    Report.find({
+        report: req.body.user,
+    }, function(err, report) {
+
+        if (err) throw err;
+
+        if (!report) {
+            res.json({ success: false, message: 'User not found.' });
+        } else if (report) {
+
+            var reportMap={};
+            report.forEach(function(report){
+                reportMap=report;
+            });
+
+            res.json({reportList: reportMap});
+        }
+
+    });
+});
+
+app.post('/requestList', function(req, res) {
+
+    Request.find({
+        request: req.body.user,
+    }, function(err, request) {
+
+        if (err) throw err;
+
+        if (!request) {
+            res.json({ success: false, message: 'User not found.' });
+        } else if (request) {
+
+            var requestMap={};
+            request.forEach(function(request){
+                requestMap=request;
+            });
+
+            res.json({reportList: requestMap});
+        }
+
+    });
+});
+
 
 app.listen(4000);
 console.log('server is running at port 4000');

@@ -16,7 +16,8 @@ var reportSchema=new mongoose.Schema(
         surgeon_name:String,
         observations:String,
         center:String,
-        date:String
+        date:String,
+        user:String
     });
 
 //return model
