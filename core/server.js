@@ -35,6 +35,8 @@ app.get('/', function(req, res) {
     res.send('Hello! The API is working');
 });
 
+app.use('/index', require('../routes/index'));
+
 
 //Login
 
@@ -195,8 +197,8 @@ app.post('/requestList', function(req, res) {
 });
 
 
-app.listen(4000);
-console.log('server is running at port 4000');
+app.listen(2000);
+console.log('server is running at port 2000');
 
 
 

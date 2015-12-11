@@ -8,7 +8,6 @@ var user_model=require('../models/user_model');
 var center_model=require('../models/center_model');
 var insurance_model=require('../models/insurance_model');
 var plate_model=require('../models/plates_model');
-var surgeon_model=require('../models/surgeon_model');
 var products_model=require('../models/products_model');
 var request_model=require('../models/request_model');
 var report_model=require('../models/report_model');
@@ -53,6 +52,5 @@ surgery_model.register(router,'/surgery');
 procedure_model.methods(['get','put','post','delete']);
 procedure_model.register(router,'/procedure');
 
-app.route('/userList', require('../Listas/usuario'));
 //return routes
 module.exports = router;

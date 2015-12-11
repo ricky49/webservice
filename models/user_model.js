@@ -6,8 +6,6 @@ var express=require('express');
 var restful=require('node-restful');
 var mongoose=restful.mongoose;
 
-var app=express();
-
 //schema
 var userSchema=new mongoose.Schema(
     {
