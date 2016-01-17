@@ -9,7 +9,7 @@ var mongoose=restful.mongoose;
 var productsSchema=new mongoose.Schema(
     {
         item_name: String,
-        item_price: Number,
+        item_price: Number
 
     });
 

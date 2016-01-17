@@ -7,7 +7,8 @@ var jwt = require('jwt-simple');
 var moment = require('moment');
 var bodyparser=require('body-parser');
 var app=express();
-module.exports.set = function(app) {
+
+module.exports = function(app) {
 
     app.get('/token', app.use(bodyparser.json()), function(req, res){
 

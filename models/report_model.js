@@ -4,6 +4,9 @@
 //dependencies
 var restful=require('node-restful');
 var mongoose=restful.mongoose;
+var moment = require('moment');
+var date = moment().format('YYYY-MM-DD HH:mm:ss');
+
 
 //schema
 var reportSchema=new mongoose.Schema(
@@ -15,8 +18,8 @@ var reportSchema=new mongoose.Schema(
         doctor:String,
         surgeon_name:String,
         observations:String,
-        center:String,
-        date:String,
+        center_name:String,
+        date: String,
         user:String
     });
 

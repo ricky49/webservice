@@ -12,7 +12,8 @@ var jwt  = require('jsonwebtoken');
 var User=require('../models/user_model');
 var Report=require('../models/report_model');
 var Request=require('../models/request_model');
-
+var data = "darrproject";
+var crypto = require('crypto');
 //express
 var app=express();
 
@@ -23,7 +24,8 @@ app.use(bodyparser.urlencoded({
 app.use(bodyparser.json());
 
 
-app.set('superSecret', 'darrproject123');
+app.set('superSecret', crypto.createHmac('sha256',data).update('time to make a token').digest("hex"));
+
 app.use(morgan('dev'));
 //app.use(methodOverride());
 
@@ -61,7 +63,7 @@ app.post('/authenticate', function(req, res) {
                 // if user is found and password is right
                 // create a token
                 User.find({
-                    user: req.body.user,
+                    user: req.body.user
                 }, function(err, users) {
 
                     if (err) throw err;
@@ -69,7 +71,6 @@ app.post('/authenticate', function(req, res) {
                     if (!users) {
                         res.json({ success: false, message: 'User not found.'});
                     } else if (users) {
-
                         var token = jwt.sign(user, app.get('superSecret'), {
                             expiresIn: 3600 // expires in 1 hours
                         });
@@ -179,7 +180,6 @@ app.post('/requestList', function(req, res) {
         request: req.body.user,
     }, function(err, request) {
 
-        if (err) throw err;
 
         if (!request) {
             res.json({ success: false, message: 'User not found.' });

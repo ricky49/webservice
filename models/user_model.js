@@ -2,7 +2,6 @@
  * Created by Ricky on 11/10/15.
  */
 //dependencies
-var express=require('express');
 var restful=require('node-restful');
 var mongoose=restful.mongoose;
 
