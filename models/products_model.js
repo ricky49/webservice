@@ -14,4 +14,4 @@ var productsSchema=new mongoose.Schema(
     });
 
 //return model
-module.exports=restful.model('products',productsSchema);
+module.exports=restful.model('products', productsSchema);

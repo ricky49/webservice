@@ -14,7 +14,7 @@ var report_model=require('../models/report_model');
 var surgeon_model=require('../models/surgeon_model');
 var surgery_model=require('../models/surgery_model');
 var procedure_model=require('../models/procedure_model');
-var app=express();
+var car_model=require('../models/car_model');
 
 
 //Routes
@@ -51,6 +51,9 @@ surgery_model.register(router,'/surgery');
 
 procedure_model.methods(['get','put','post','delete']);
 procedure_model.register(router,'/procedure');
+
+car_model.methods(['get','put','post','delete']);
+car_model.register(router,'/cars');
 
 //return routes
 module.exports = router;

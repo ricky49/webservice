@@ -1,58 +1,35 @@
-/**
- * Created by Ricky on 12/1/15.
- */
-var express = require('express');
-var UserModel = require('../models/user_model');
-var jwt = require('jwt-simple');
-var moment = require('moment');
-var bodyparser=require('body-parser');
+var jwt  = require('jsonwebtoken');
+var express=require('express');
 var app=express();
+app.set('superSecret', 'darr123');
 
-module.exports = function(app) {
 
-    app.get('/token', app.use(bodyparser.json()), function(req, res){
+module.exports= function(req, res,next) {
+    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
-        if (req.headers.user && req.headers.pass) {
+// decode token
+    if (token) {
 
-            // Fetch the appropriate user, if they exist
-            UserModel.findOne({ user: req.headers.user }, function(err, user) {
-                if (err) {
-                    // user cannot be found; may wish to log that fact here. For simplicity, just return a 401
-                    res.send('Authentication error', 401)
-                }
+        // verifies secret and checks exp
+        jwt.verify(token, app.get('superSecret'), function (err, decoded) {
+            if (err) {
+                return res.json({success: false, message: 'Failed to authenticate token.'});
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next();
+            }
+        });
 
-                user.comparePassword(req.headers.pass, function(err, isMatch) {
-                    if (err) {
-                        // an error has occured checking the password. For simplicity, just return a 401
-                        res.send('Authentication error', 401)
-                    }
-                    if (isMatch) {
+    } else {
 
-                        // Great, user has successfully authenticated, so we can generate and send them a token.
-                        var expires = moment().add('days', 1).valueOf()
-                        var token = jwt.encode(
-                            {
-                                iss: user.id,
-                                exp: expires
-                            },
-                            app.get('jwtTokenSecret')
-                        );
-                        res.json({
-                            token : token,
-                            expires : expires,
-                            user : user.toJSON()
-                        });
-                    } else {
-                        // The password is wrong...
-                        res.send('Authentication error', 401)
-                    }
-                });
+        // if there is no token
+        // return an error
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided.'
+        });
 
-            });
-        } else {
-            // No username provided, or invalid POST request. For simplicity, just return a 401
-            res.send('Authentication error', 401)
-        }
-    })
+    }
 
-}
+};

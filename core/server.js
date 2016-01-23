@@ -8,23 +8,22 @@ var mongoose=require('mongoose');
 var bodyparser=require('body-parser');
 var morgan = require('morgan');
 var express=require('express');
-var jwt  = require('jsonwebtoken');
+var login = require('../middleware/login');
+var authentication = require('../middleware/authentication');
 var User=require('../models/user_model');
-var Report=require('../models/report_model');
-var Request=require('../models/request_model');
-var data = "darrproject";
-var crypto = require('crypto');
+var jwt  = require('jsonwebtoken');
+var moment = require('moment');
+
+
 //express
-var app=express();
+var app = express();
 
 app.use(bodyparser.urlencoded({
     extended: false
 }));
 
 app.use(bodyparser.json());
-
-
-app.set('superSecret', crypto.createHmac('sha256',data).update('time to make a token').digest("hex"));
+app.set('superSecret', 'darr123');
 
 app.use(morgan('dev'));
 //app.use(methodOverride());
@@ -32,21 +31,17 @@ app.use(morgan('dev'));
 //MongoDB
 mongoose.connect('mongodb://localhost/darr');
 
-//Routes
-app.get('/', function(req, res) {
-    res.send('Hello! The API is working');
-});
-
-app.use('/index', require('../routes/index'));
-
-
 //Login
+app.use('/index', require('../routes/index'));
+app.use('/', function(req, res) {
+    res.send('Hello!');
+});
 
 app.post('/authenticate', function(req, res) {
 
     // find the user
     User.findOne({
-        user: req.body.user,
+        user: req.body.user
     }, function(err, user) {
 
         if (err) throw err;
@@ -66,18 +61,21 @@ app.post('/authenticate', function(req, res) {
                     user: req.body.user
                 }, function(err, users) {
 
-                    if (err) throw err;
+                    if (err) res.json(err);
 
                     if (!users) {
                         res.json({ success: false, message: 'User not found.'});
-                    } else if (users) {
-                        var token = jwt.sign(user, app.get('superSecret'), {
-                            expiresIn: 3600 // expires in 1 hours
-                        });
+                    } else if(users) {
+                        var payload ={
+                            sub: user._id,
+                            iat: moment().unix(),
+                            exp: moment().add(1, "days").unix()
+                        };
+                        var token = jwt.sign(payload, app.get('superSecret'));
 
                         var userMap={};
                         users.forEach(function(user){
-                            userMap=user;
+                            userMap = user;
                         });
 
                         res.json({
@@ -96,7 +94,7 @@ app.post('/authenticate', function(req, res) {
     });
 });
 
-app.use(function (req, res, next) {
+app.use(function(req,res,next) {
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
 // decode token
@@ -111,6 +109,12 @@ app.use(function (req, res, next) {
                 req.decoded = decoded;
                 next();
             }
+
+            if (jwt.exp <= moment().unix()) {
+                return res
+                    .status(401)
+                    .send({message: "El token ha expirado"});
+            }
         });
 
     } else {
@@ -123,78 +127,11 @@ app.use(function (req, res, next) {
         });
 
     }
-
 });
 
+//Routes
 app.use('/api', require('../routes/api'));
 
-app.post('/userList', function(req, res) {
-
-    User.find({
-        user: req.body.user,
-    }, function(err, users) {
-
-        if (err) throw err;
-
-        if (!users) {
-            res.json({ success: false, message: 'User not found.' });
-        } else if (users) {
-
-            var userMap={};
-            users.forEach(function(user){
-                userMap=user;
-            });
-
-            res.json({userList: userMap});
-        }
-
-    });
-});
-
-app.post('/reportList', function(req, res) {
-
-    Report.find({
-        report: req.body.user,
-    }, function(err, report) {
-
-        if (err) throw err;
-
-        if (!report) {
-            res.json({ success: false, message: 'User not found.' });
-        } else if (report) {
-
-            var reportMap={};
-            report.forEach(function(report){
-                reportMap=report;
-            });
-
-            res.json({reportList: reportMap});
-        }
-
-    });
-});
-
-app.post('/requestList', function(req, res) {
-
-    Request.find({
-        request: req.body.user,
-    }, function(err, request) {
-
-
-        if (!request) {
-            res.json({ success: false, message: 'User not found.' });
-        } else if (request) {
-
-            var requestMap={};
-            request.forEach(function(request){
-                requestMap=request;
-            });
-
-            res.json({reportList: requestMap});
-        }
-
-    });
-});
 
 
 app.listen(2000);

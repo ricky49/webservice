@@ -9,13 +9,12 @@ var mongoose=restful.mongoose;
 var userSchema=new mongoose.Schema(
     {
         user:{ type: String, required: true, index: { unique: true } },
-        pass: String,
-        mail:String,
-        name:String,
-        lastname:String
+        pass: { type: String, required: true},
+        mail:{ type: String, required: true, index: { unique: true } },
+        name:{ type: String, required: true},
+        lastname:{ type: String, required: true},
+        document: {type: String, required: true, index: { unique: true } }
     });
-
-
 
 //return model
  module.exports=restful.model('users',userSchema);
