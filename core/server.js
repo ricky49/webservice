@@ -33,9 +33,6 @@ mongoose.connect('mongodb://localhost/darr');
 
 //Login
 app.use('/index', require('../routes/index'));
-app.use('/', function(req, res) {
-    res.send('Hello!');
-});
 
 app.post('/authenticate', function(req, res) {
 
