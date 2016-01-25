@@ -15,6 +15,7 @@ var surgeon_model=require('../models/surgeon_model');
 var surgery_model=require('../models/surgery_model');
 var procedure_model=require('../models/procedure_model');
 var car_model=require('../models/car_model');
+var rol_model=require('../models/rol_model');
 
 
 //Routes
@@ -54,6 +55,9 @@ procedure_model.register(router,'/procedure');
 
 car_model.methods(['get','put','post','delete']);
 car_model.register(router,'/cars');
+
+rol_model.methods(['get','put','post','delete']);
+rol_model.register(router,'/roles');
 
 //return routes
 module.exports = router;
