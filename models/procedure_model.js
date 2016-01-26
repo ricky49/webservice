@@ -8,7 +8,8 @@ var mongoose=restful.mongoose;
 //schema
 var procedureSchema=new mongoose.Schema(
     {
-        procedure_desc:String
+        procedure_desc: String,
+        plate_id: Number
 
     });
 

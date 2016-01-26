@@ -3,8 +3,9 @@
  */
 //dependencies
 var restful=require('node-restful');
-var mongoose=restful.mongoose;
-
+var mongoose= restful.mongoose;
+var rolesSchema= require('./rol_model');
+var roles  = mongoose.model('roles', rolesSchema);
 //schema
 var userSchema=new mongoose.Schema(
     {
@@ -13,8 +14,12 @@ var userSchema=new mongoose.Schema(
         mail:{ type: String, required: true, index: { unique: true } },
         name:{ type: String, required: true},
         lastname:{ type: String, required: true},
-        document: {type: String, required: true, index: { unique: true } }
+        document: {type: String, required: true, index: { unique: true } },
+        rol_name: [{type: String, default: 'pacient'}],
+        rol_id: [{type: String, ref: 'roles'}]
     });
+
+
 
 //return model
  module.exports=restful.model('users',userSchema);

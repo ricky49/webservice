@@ -19,7 +19,7 @@ var reportSchema=new mongoose.Schema(
         surgeon_name:String,
         observations:String,
         center_name:String,
-        date: String,
+        date: {type: String, default: Date.now},
         user:String
     });
 

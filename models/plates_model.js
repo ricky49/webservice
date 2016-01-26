@@ -10,7 +10,8 @@ var plateSchema=new mongoose.Schema(
     {
         item: String,
         code: Number,
-        batch:Number
+        batch:Number,
+        plate_id: Number
     });
 
 //return model
