@@ -32,6 +32,7 @@ app.use(morgan('dev'));
 mongoose.connect('mongodb://localhost/darr');
 
 //Login
+
 app.use('/index', require('../routes/index'));
 
 app.post('/authenticate', function(req, res) {

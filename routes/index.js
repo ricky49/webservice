@@ -5,12 +5,10 @@ var user_model=require('../models/user_model');
 user_model.methods(['post']);
 user_model.register(router,'/register');
 
-router.get('/api', function(req, res) {
-  res.send('api is working');
+router.get('/',function(res){
+  res.send('hola papa');
 });
 
-router.get('/', function(req, res) {
-  res.send('Hello! The API is working');
-});
+
 
 module.exports = router;
