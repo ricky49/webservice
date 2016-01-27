@@ -18,7 +18,8 @@ var requestSchema=new mongoose.Schema(
         center_name:String,
         surgeon_name:String,
         user:String,
-        state: String
+        state: String,
+	item_manuales: String
 
     });
 
