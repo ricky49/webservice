@@ -9,9 +9,8 @@ var mongoose=restful.mongoose;
 var plateSchema=new mongoose.Schema(
     {
         item: String,
-        code: Number,
-        batch:Number,
-        plate_id: Number
+        plate_id: Number,
+        procedure_id: Number
     });
 
 //return model

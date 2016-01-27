@@ -6,13 +6,28 @@ var restful=require('node-restful');
 var mongoose=restful.mongoose;
 
 //schema
+var crypto = require('crypto');
+
+function random (howMany, chars) {
+        chars = chars
+            || "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        var rnd = crypto.randomBytes(howMany)
+            , value = new Array(howMany)
+            , len = chars.length;
+
+        for (var i = 0; i < howMany; i++) {
+                value[i] = chars[rnd[i] % len]
+        };
+
+        return value.join('');
+}
 var requestSchema=new mongoose.Schema(
     {
         pacient_name: String,
-        document: Number,
+        document: {type: Number, required: true, index: { unique: true } },
         pacient_tel:Number,
         insurance_name:String,
-        authorization:Number,
+        authorization:{type:Number, default: random(10,'12455677')},
         procedure_name:String,
         surgery_date:String,
         center_name:String,

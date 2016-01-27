@@ -18,10 +18,12 @@ var moment = require('moment');
 //express
 var app = express();
 
+
 app.use(bodyparser.urlencoded({
     extended: false
 }));
 
+console.log();
 app.use(bodyparser.json());
 app.set('superSecret', 'darr123');
 
