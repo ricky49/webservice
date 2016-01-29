@@ -6,21 +6,19 @@
 var restful=require('node-restful');
 var mongoose= restful.mongoose;
 //schema
-var userSchema=new mongoose.Schema(
+var userSchema = new mongoose.Schema(
     {
         user:{ type: String, required: true, index: { unique: true } },
         pass: { type: String, required: true},
         mail:{ type: String, required: true, index: { unique: true } },
         name:{ type: String, required: true},
         lastname:{ type: String, required: true},
-        document: {type: String, required: true, index: { unique: true } },
-        rol: {type: String, required: true, default: 'pacient'},
-        rol_id: [{type: Number, ref: 'roles'}]
+        document: {type: Number, required: true, index: { unique: true }},
+        rol: {type: String, default: 'pacient'},
+        rol_id: {type: String}
     });
 
-
-
 //return model
- module.exports=restful.model('users',userSchema);
+ module.exports = restful.model('users',userSchema);
 
 

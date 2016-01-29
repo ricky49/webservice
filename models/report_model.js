@@ -2,11 +2,11 @@
  * Created by Ricky on 11/15/15.
  */
 //dependencies
-var restful=require('node-restful');
+var restful= require('node-restful');
 var mongoose=restful.mongoose;
 var moment = require('moment');
-var date = moment().format('YYYY-MM-DD HH:mm:ss');
-
+var date = moment().format('YYYY-MM-DD');
+console.log(date);
 
 //schema
 var reportSchema=new mongoose.Schema(
@@ -19,8 +19,9 @@ var reportSchema=new mongoose.Schema(
         surgeon_name:String,
         observations:String,
         center_name:String,
-        date: {type: String, default: Date.now},
-        user:String
+        date: {type: String, default: date},
+        user:String,
+        last_update: String
     });
 
 //return model

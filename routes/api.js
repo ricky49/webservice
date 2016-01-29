@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
+
 //models
 var user_model=require('../models/user_model');
 var center_model=require('../models/center_model');
@@ -16,12 +17,13 @@ var surgery_model=require('../models/surgery_model');
 var procedure_model=require('../models/procedure_model');
 var car_model=require('../models/car_model');
 var rol_model=require('../models/rol_model');
+var requestStatus_model = require('../models/requestStatus_model');
+
 
 
 //Routes
 user_model.methods(['get','put','post','delete']);
 user_model.register(router,'/users');
-
 
 center_model.methods(['get','put','post','delete']);
 center_model.register(router,'/center');
@@ -58,6 +60,10 @@ car_model.register(router,'/cars');
 
 rol_model.methods(['get','put','post','delete']);
 rol_model.register(router,'/roles');
+
+requestStatus_model.methods(['get','put','post','delete']);
+requestStatus_model.register(router,'/requestStatus');
+
 
 //return routes
 module.exports = router;
