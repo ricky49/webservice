@@ -5,6 +5,8 @@
 //dependencies
 var restful=require('node-restful');
 var mongoose= restful.mongoose;
+//var rolesSchema= require('./rol_model');
+//var roles  = mongoose.model('roles', rolesSchema);
 //schema
 var userSchema = new mongoose.Schema(
     {
@@ -14,8 +16,7 @@ var userSchema = new mongoose.Schema(
         name:{ type: String, required: true},
         lastname:{ type: String, required: true},
         document: {type: Number, required: true, index: { unique: true }},
-        rol: {type: String, default: 'pacient'},
-        rol_id: {type: String}
+        rol: {type: String, default: 'pacient'}
     });
 
 //return model

@@ -9,8 +9,11 @@ var mongoose=restful.mongoose;
 var plateSchema=new mongoose.Schema(
     {
         item: String,
+        quantity:Number,
         plate_id: Number,
-        procedure_id: Number
+        procedure_id: {type:mongoose.Schema.ObjectId,ref:'procedure'},
+        price: Number,
+        total_amount:Number
     });
 
 //return model

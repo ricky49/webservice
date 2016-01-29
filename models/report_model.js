@@ -6,7 +6,6 @@ var restful= require('node-restful');
 var mongoose=restful.mongoose;
 var moment = require('moment');
 var date = moment().format('YYYY-MM-DD');
-console.log(date);
 
 //schema
 var reportSchema=new mongoose.Schema(
