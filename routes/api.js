@@ -18,6 +18,8 @@ var procedure_model=require('../models/procedure_model');
 var car_model=require('../models/car_model');
 var rol_model=require('../models/rol_model');
 var requestStatus_model = require('../models/requestStatus_model');
+var reportProducts_model = require('../models/reportProducts_model');
+
 
 
 
@@ -63,6 +65,10 @@ rol_model.register(router,'/roles');
 
 requestStatus_model.methods(['get','put','post','delete']);
 requestStatus_model.register(router,'/requestStatus');
+
+reportProducts_model.methods(['get','put','post','delete']);
+reportProducts_model.register(router,'/reportProducts');
+
 
 
 //return routes

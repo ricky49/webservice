@@ -4,15 +4,25 @@
 
 //Dependencies
 
-var mongoose=require('mongoose');
-var bodyparser=require('body-parser');
+var mongoose = require('mongoose');
+var bodyparser = require('body-parser');
 var morgan = require('morgan');
-var express=require('express');
+var express = require('express');
 var login = require('../middleware/login');
 var authentication = require('../middleware/authentication');
-var User=require('../models/user_model');
+var User = require('../models/user_model');
 var jwt  = require('jsonwebtoken');
 var moment = require('moment');
+var carSchema = require('../models/car_model');
+var cart = mongoose.model('cars',carSchema);
+var productSchema = require('../models/products_model');
+var productModel = mongoose.model('products',productSchema);
+
+String.prototype.toObjectId = function() {
+    var ObjectId = (require('mongoose').Types.ObjectId);
+    return new ObjectId(this.toString());
+};
+
 
 
 //express
@@ -128,8 +138,25 @@ app.use(function(req,res,next) {
     }
 });
 
+app.post('/carProducts',function(req,res) {
+
+    var cast = req.body.user_id;
+    cart.find({user_id: cast},function(err,result){
+
+        var product = result.map(function(result){
+            return new mongoose.Types.ObjectId(result.product_id);
+
+        });
+        productModel.find({_id: {$in: product}},function(result){
+        })
+
+    })
+});
+
 //Routes
 app.use('/api', require('../routes/api'));
+
+
 
 
 

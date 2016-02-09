@@ -17,10 +17,11 @@ function random (howMany, chars) {
 
         for (var i = 0; i < howMany; i++) {
                 value[i] = chars[rnd[i] % len]
-        };
+        }
 
         return value.join('');
 }
+
 var requestSchema=new mongoose.Schema(
     {
         pacient_name: String,
