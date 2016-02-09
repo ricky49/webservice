@@ -33,7 +33,7 @@ var requestSchema=new mongoose.Schema(
         center_name:String,
         surgeon_name:String,
         user:String,
-        state: String,
+        status:{type: String,default:'enviado'},
 	item_manuales: String
 
     });

@@ -12,8 +12,8 @@ var mongoose=restful.mongoose;
 //schema
 var carSchema = new mongoose.Schema(
     {
-        product_id: String,
-        user_id: String,
+        product_id: {type:mongoose.Schema.ObjectId,ref:'products'},
+        user_id: {type:mongoose.Schema.ObjectId,ref:'users'},
         quantity: Number
     });
 
