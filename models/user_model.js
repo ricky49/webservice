@@ -1,4 +1,5 @@
 /**
+
  * Created by Ricky on 11/10/15.
  */
 //dependencies
@@ -15,7 +16,7 @@ var userSchema = new mongoose.Schema(
         name:{ type: String, required: true},
         lastname:{ type: String, required: true},
         document: {type: Number, required: true, index: { unique: true }},
-        rol: {type: String, default: 'paciente'}
+        rol: {type: String, default: 'pacient'}
     });
 
 //return model
