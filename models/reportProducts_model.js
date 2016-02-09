@@ -7,10 +7,10 @@ var mongoose=restful.mongoose;
 //schema
 var reportProductSchema=new mongoose.Schema(
     {
-        report_id: String,
-        product_id: String,
-        user_id: String,
-        quantity: Number
+        report_id: {type:String,default:'empty'},
+        product_id: {type:String,default: 'empty'},
+        user_id: {type:String,default: 'empty'},
+        quantity: {type:Number,default: 0}
     });
 
 //return model

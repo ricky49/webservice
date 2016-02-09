@@ -20,9 +20,7 @@ var reportSchema=new mongoose.Schema(
         center_name:String,
         date: {type: String, default: date},
         user:String,
-        last_update: String,
-	products: [{product_id:{type:String,default:'Null'}},
-	{quantity:{type:Number,default:0}}]
+        last_update: String
 
     });
 
