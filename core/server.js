@@ -138,27 +138,25 @@ app.use(function(req,res,next) {
     }
 });
 
-app.post('/carProducts',function(req,res) {
+app.post('/api/carProducts',function(req,res) {
 
     var cast = req.body.user_id;
     cart.find({user_id: cast},function(err,result){
 
-        var product = result.map(function(result){
-            return new mongoose.Types.ObjectId(result.product_id);
 
+        var product_id = result.map(function(result){
+            return new mongoose.Types.ObjectId(result.product_id);
         });
-        productModel.find({_id: {$in: product}},function(result){
-        })
+
+        productModel.find({_id: {$in: product_id}},function(err,result){
+            res.json({Products: result});
+        });
 
     })
 });
 
 //Routes
 app.use('/api', require('../routes/api'));
-
-
-
-
 
 app.listen(2000);
 console.log('server is running at port 2000');

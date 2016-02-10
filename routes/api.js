@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 //models
 var user_model=require('../models/user_model');
@@ -19,6 +20,7 @@ var car_model=require('../models/car_model');
 var rol_model=require('../models/rol_model');
 var requestStatus_model = require('../models/requestStatus_model');
 var reportProducts_model = require('../models/reportProducts_model');
+
 
 
 
@@ -69,7 +71,7 @@ requestStatus_model.register(router,'/requestStatus');
 reportProducts_model.methods(['get','put','post','delete']);
 reportProducts_model.register(router,'/reportProducts');
 
-
+var app = express();
 
 //return routes
 module.exports = router;

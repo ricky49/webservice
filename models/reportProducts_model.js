@@ -9,7 +9,7 @@ var reportProductSchema=new mongoose.Schema(
     {
         report_id: {type:String,default:'empty'},
         product_id: {type:String,default: 'empty'},
-        user_id: {type:String,default: 'empty'},
+        user_id: {type:String, default: 'empty'},
         quantity: {type:Number,default: 0}
     });
 
