@@ -16,14 +16,12 @@ var report_model=require('../models/report_model');
 var surgeon_model=require('../models/surgeon_model');
 var surgery_model=require('../models/surgery_model');
 var procedure_model=require('../models/procedure_model');
+var procedure_model=require('../models/procedure_model');
 var car_model=require('../models/car_model');
 var rol_model=require('../models/rol_model');
 var requestStatus_model = require('../models/requestStatus_model');
 var reportProducts_model = require('../models/reportProducts_model');
-
-
-
-
+var bill_model=require('../models/bill_model');
 
 //Routes
 user_model.methods(['get','put','post','delete']);
@@ -71,7 +69,8 @@ requestStatus_model.register(router,'/requestStatus');
 reportProducts_model.methods(['get','put','post','delete']);
 reportProducts_model.register(router,'/reportProducts');
 
-var app = express();
+bill_model.methods(['get','put','post','delete']);
+bill_model.register(router,'/bills');
 
 //return routes
 module.exports = router;
