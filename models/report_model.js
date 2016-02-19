@@ -10,14 +10,14 @@ var date = moment().format('YYYY-MM-DD');
 //schema
 var reportSchema=new mongoose.Schema(
     {
-        pacient_name: String,
-        insurance_name: String,
+        pacient_name: {type:String,required:true},
+        insurance_name: {type:String,required:true},
         nss:{type:Number,required:true},
-        bandeja_id:Number,
-        doctor:String,
-        surgeon_name:String,
-        observations:String,
-        center_name:String,
+        bandeja_id:{type:Number,required:true},
+        doctor:{type:String,required:true},
+        surgeon_name:{type:String,required:true},
+        observations:{type:String,required:true},
+        center_name:{type:String,required:true},
         date: {type: String, default: date},
         user:String,
         last_update: String
