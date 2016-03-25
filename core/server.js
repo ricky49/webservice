@@ -50,24 +50,32 @@ app.post('/authenticate', function(req, res) {
 
     // find the user
     User.findOne({
-        user: req.body.user
+
+        $or:[{fingerprint: req.body.fingerprint},{
+            user: req.body.user
+        }]
     }, function(err, user) {
+        console.log(user);
 
         if (err) throw err;
 
         if (!user) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.json({ success: false, message: 'Authentication failed. User or fingerprint id not found.' });
         } else if (user) {
 
             // check if password matches
-            if (user.pass != req.body.pass) {
-                res.json({success: false, message: 'Authentication failed. Wrong password.' });
-            } else {
+            if (user.pass != req.body.pass && req.body.fingerprint==null) {
+                res.json({success:false, message: 'Authentication failed. Wrong password or fingerprint id.' });
+            } else if(user.pass == req.body.pass || user.fingerprint == req.body.fingerprint) {
 
                 // if user is found and password is right
                 // create a token
                 User.find({
-                    user: req.body.user
+                    $or:[{
+                        fingerprint: req.body.fingerprint
+                    },{
+                        user: req.body.user
+                    }]
                 }, function(err, users) {
 
                     if (err) res.json(err);

@@ -13,8 +13,8 @@ var userSchema = new mongoose.Schema(
         name:{ type: String, required: true},
         lastname:{ type: String, required: true},
         document: {type: Number, required: true, index: { unique: true }},
-        rol: {type: String, default: 'pacient'},
-        fingerprint: {type:String,index: { unique: true }}
+        rol: {type: String, default: 'paciente'},
+        fingerprint: {type:String,index: { unique: true },default:"null"}
     });
 
 //return model
