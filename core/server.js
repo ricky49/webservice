@@ -55,8 +55,6 @@ app.post('/authenticate', function(req, res) {
             user: req.body.user
         }]
     }, function(err, user) {
-        console.log(user);
-
         if (err) throw err;
 
         if (!user) {
@@ -70,19 +68,7 @@ app.post('/authenticate', function(req, res) {
 
                 // if user is found and password is right
                 // create a token
-                User.find({
-                    $or:[{
-                        fingerprint: req.body.fingerprint
-                    },{
-                        user: req.body.user
-                    }]
-                }, function(err, users) {
-
-                    if (err) res.json(err);
-
-                    if (!users) {
-                        res.json({ success: false, message: 'User not found.'});
-                    } else if(users) {
+                    console.log(user);
                         var payload ={
                             sub: user._id,
                             iat: moment().unix(),
@@ -90,19 +76,14 @@ app.post('/authenticate', function(req, res) {
                         };
                         var token = jwt.sign(payload, app.get('superSecret'));
 
-                        var userMap={};
-                        users.forEach(function(user){
-                            userMap = user;
-                        });
-
                         res.json({
                             success: true,
                             key_success: 'success',
                             token: token,
-                            userData: userMap});
-                    }
+                            userData: user});
 
-                });
+
+
 
             }
 
